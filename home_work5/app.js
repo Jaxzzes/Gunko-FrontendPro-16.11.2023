@@ -1,47 +1,29 @@
-const question = prompt('Enter the action you want to perform! (Add, subtract, multiply, or divide) \nEnter "add" to add. \nEnter "sub" to perform the subtraction. \nEnter "mult" to perform multiplication. \nEnter "mult" to perform multiplication.');
+const question = prompt('Enter the action you want to perform! (Add, subtract, multiply, or divide)\nEnter "add" to add.\nEnter "sub" to perform subtraction.\nEnter "mult" to perform multiplication.\nEnter "div" to perform division.');
 
 const firstValue = prompt('To perform the action, enter the first number.');
-
 const secondValue = prompt('To perform the action, enter the second number.');
 
-let addResult;
-let subResult;
-let multResult;
-let divResult;
+let result;
 
-if ( question === 'add' ) {
-    addResult = +firstValue + +secondValue;
-};
+switch (question) {
+    case 'add':
+        result = +firstValue + +secondValue;
+        break;
+    case 'sub':
+        result = +firstValue - +secondValue;
+        break;
+    case 'mult':
+        result = +firstValue * +secondValue;
+        break;
+    case 'div':
+        result = +firstValue / +secondValue;
+        break;
+    default:
+        console.log('Invalid operation');
+}
 
-if ( question === 'sub' ) {
-    subResult = +firstValue - +secondValue;
-};
+console.log(result);
 
-if ( question === 'mult' ) {
-    multResult = +firstValue * +secondValue;
-};
 
-if ( question === 'div' ) {
-    divResult = +firstValue / +secondValue;
-};
+alert(`Answer: ${result}`);
 
-console.log(addResult);
-console.log(subResult);
-console.log(multResult);
-console.log(divResult);
-
-if ( question === 'add' ) {
-    alert(`Answer: ${addResult} \nThank you for checking my homework :)`);
-};
-
-if ( question === 'sub' ) {
-    alert(`Answer: ${subResult} \nThank you for checking my homework :)`);
-};
-
-if ( question === 'mult' ) {
-    alert(`Answer: ${multResult} \nThank you for checking my homework :)`);
-};
-
-if ( question === 'div' ) {
-    alert(`Answer: ${divResult} \nThank you for checking my homework :)`);
-};

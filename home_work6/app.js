@@ -1,6 +1,6 @@
 const hourQuestion = prompt('Enter the number of desired hours you want to convert to seconds!');
 
-const secondExample = hourQuestion * 60;
+const secondExample = hourQuestion * 3600;
 
 const secondResult = secondExample;
 
