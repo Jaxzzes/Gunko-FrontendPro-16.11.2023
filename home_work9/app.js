@@ -11,23 +11,23 @@
 // console.log('OK!');
 // }
 
-let numOrStr = prompt('Input number or string');
+let numOrStr = prompt('input number or string');
 console.log(numOrStr);
 
 let result;
 
 switch (true) {
     case numOrStr === null:
-        result = 'You canceled!';
+        result = 'ви скасували';
         break;
     case numOrStr.trim() === '':
-        result = '(Empty string) - You haven\u0027t entered anything!';
+        result = 'Empty String';
         break;
     case isNaN(+numOrStr):
-        result = 'You entered string!';
+        result = 'number is Ba_NaN';
         break;
     default:
-        result = 'You entered number!';
+        result = 'OK!';
         break;
 }
 
