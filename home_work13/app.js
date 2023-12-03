@@ -207,10 +207,11 @@ console.log(' ');
 
 // Point 10
 
-for (let i = 0; i < givenArray.length; i++) {
-  if (givenArray[i] !== maxElement) {
-    givenArray[i] = 0;
+let cloneGivenArray = [...givenArray];
+for (let i = 0; i < cloneGivenArray.length; i++) {
+  if (cloneGivenArray[i] !== maxElement) {
+    cloneGivenArray[i] = 0;
   }
 }
 
-console.log(`Array after zeroization: ${givenArray}`);
+console.log(`Array after zeroization: ${cloneGivenArray}`);
