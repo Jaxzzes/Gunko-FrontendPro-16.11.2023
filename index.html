@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Testimonials</title>
+    <style>
+      #testimonials {
+        display: flex;
+        flex-direction: column;
+        max-width: 600px;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+      }
+
+      .testimonial {
+        margin-bottom: 20px;
+        padding: 10px;
+        background-color: #f8f8f8;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      const reviews = [
+        {
+          sender: "John Doe",
+          text: "Great service! I highly recommend it.",
+        },
+        {
+          sender: "Jane Smith",
+          text: "Excellent product quality and fast delivery.",
+        },
+        {
+          sender: "Bob Johnson",
+          text: "Amazing experience! Will definitely use again.",
+        },
+      ];
+
+      function createTestimonial(review) {
+        const testimonial = document.createElement("div");
+        testimonial.append(
+          createParagraph(review.sender),
+          createParagraph(review.text)
+        );
+        return testimonial;
+      }
+
+      function createParagraph(text) {
+        const paragraph = document.createElement("p");
+        const textNode = document.createTextNode(text);
+        paragraph.append(textNode);
+        return paragraph;
+      }
+
+      function addTestimonials() {
+        const testimonialsBlock = document.createElement("div");
+        testimonialsBlock.setAttribute("id", "testimonials");
+
+        for (const review of reviews) {
+          const testimonial = createTestimonial(review);
+          testimonialsBlock.append(testimonial);
+        }
+
+        document.body.append(testimonialsBlock);
+      }
+
+      addTestimonials();
+    </script>
+  </body>
+</html>
