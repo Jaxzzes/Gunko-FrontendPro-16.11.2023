@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Voting Results</title>
+    <style>
+      .emoticon {
+        display: inline-block;
+        font-size: 24px;
+        cursor: pointer;
+        margin: 10px;
+      }
+
+      #results {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="votingOptions"></div>
+    <div id="results"></div>
+
+    <script>
+      const emoticons = [
+        { emoji: "😊", votes: 0 },
+        { emoji: "😄", votes: 0 },
+        { emoji: "😍", votes: 0 },
+        { emoji: "🥳", votes: 0 },
+        { emoji: "😎", votes: 0 },
+      ];
+
+      function renderVotingOptions() {
+        const votingOptionsDiv = document.getElementById("votingOptions");
+
+        emoticons.forEach((emoticon, index) => {
+          const emoticonDiv = document.createElement("div");
+          emoticonDiv.className = "emoticon";
+          emoticonDiv.textContent = emoticon.emoji;
+          emoticonDiv.onclick = () => vote(index);
+          votingOptionsDiv.appendChild(emoticonDiv);
+        });
+      }
+
+      function renderResults() {
+        const resultsDiv = document.getElementById("results");
+        resultsDiv.innerHTML = "";
+
+        emoticons.forEach((emoticon) => {
+          const resultItem = document.createElement("div");
+          resultItem.textContent = `${emoticon.emoji}: ${emoticon.votes} votes`;
+          resultsDiv.appendChild(resultItem);
+        });
+      }
+
+      function vote(index) {
+        emoticons[index].votes++;
+        renderResults();
+      }
+
+      renderVotingOptions();
+      renderResults();
+    </script>
+  </body>
+</html>
