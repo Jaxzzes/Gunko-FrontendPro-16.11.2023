@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Online Store</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: space-around;
+      }
+
+      #products,
+      #product-info {
+        border: 1px solid #ccc;
+        padding: 10px;
+        width: 30%;
+        display: none;
+      }
+
+      #products {
+        text-align: center;
+      }
+
+      .product-card {
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin: 10px;
+        cursor: pointer;
+      }
+
+      #buy-modal {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #fff;
+        padding: 20px;
+        border: 1px solid #ccc;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        z-index: 2;
+      }
+
+      #overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1;
+      }
+
+      #buy-button {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="categories">
+      <h2>Categories</h2>
+      <ul id="category-list"></ul>
+    </div>
+
+    <div id="products">
+      <h2>Products</h2>
+      <div id="product-list"></div>
+    </div>
+
+    <div id="product-info">
+      <h2>Product Information</h2>
+      <div id="product-details"></div>
+      <button id="buy-button" onclick="openBuyModal()">Buy</button>
+    </div>
+
+    <div id="buy-modal">
+      <p id="purchase-message"></p>
+    </div>
+
+    <div id="overlay"></div>
+
+    <script>
+      const products = [
+        {
+          id: 1,
+          name: "Iphone 15",
+          image:
+            "https://content1.rozetka.com.ua/goods/images/big_tile/364834187.jpg",
+          price: 700,
+          description: "Description for Iphone 15",
+          category: "Phones",
+        },
+        {
+          id: 2,
+          name: "Iphone 14",
+          image:
+            "https://content2.rozetka.com.ua/goods/images/big_tile/284913563.jpg",
+          price: 600,
+          description: "Description for Iphone 14",
+          category: "Phones",
+        },
+        {
+          id: 3,
+          name: "Iphone 13",
+          image:
+            "https://content1.rozetka.com.ua/goods/images/big_tile/221026603.jpg",
+          price: 500,
+          description: "Description for Iphone 13",
+          category: "Phones",
+        },
+        {
+          id: 4,
+          name: "Samsung",
+          image:
+            "https://content1.rozetka.com.ua/goods/images/big_tile/364929632.jpg",
+          price: 1500,
+          description: "Description for Samsung",
+          category: "TVs",
+        },
+        {
+          id: 5,
+          name: "LG",
+          image:
+            "https://content1.rozetka.com.ua/goods/images/big_tile/388497296.jpg",
+          price: 1200,
+          description: "Description for LG",
+          category: "TVs",
+        },
+        {
+          id: 6,
+          name: "Ergo",
+          image:
+            "https://content2.rozetka.com.ua/goods/images/big_tile/362881871.jpg",
+          price: 1000,
+          description: "Description for Ergo",
+          category: "TVs",
+        },
+        {
+          id: 7,
+          name: "Lenovo",
+          image:
+            "https://content.rozetka.com.ua/goods/images/big_tile/374343936.jpg",
+          price: 800,
+          description: "Description for Lenovo",
+          category: "Laptops",
+        },
+        {
+          id: 8,
+          name: "Asus",
+          image:
+            "https://content.rozetka.com.ua/goods/images/big_tile/334343848.jpg",
+          price: 1000,
+          description: "Description for Asus",
+          category: "Laptops",
+        },
+        {
+          id: 9,
+          name: "MacBook",
+          image:
+            "https://content1.rozetka.com.ua/goods/images/big_tile/144249735.jpg",
+          price: 1200,
+          description: "Description for MacBook",
+          category: "Laptops",
+        },
+      ];
+
+      const categoriesList = document.getElementById("category-list");
+      const uniqueCategories = [
+        ...new Set(products.map((product) => product.category)),
+      ];
+      uniqueCategories.forEach((category) => {
+        const li = document.createElement("li");
+        li.textContent = category;
+        li.addEventListener("click", () => showProducts(category));
+        categoriesList.appendChild(li);
+      });
+
+      function showProducts(category) {
+        const productList = document.getElementById("product-list");
+        productList.innerHTML = "";
+
+        const filteredProducts = products.filter(
+          (product) => product.category === category
+        );
+
+        filteredProducts.forEach((product) => {
+          const card = document.createElement("div");
+          card.classList.add("product-card");
+          card.innerHTML = `<img src="${product.image}" alt="${product.name}" width="100"><br>
+                          <strong>${product.name}</strong><br>
+                          $${product.price}<br>
+                          <button onclick="showProductInfo(${product.id})">View Details</button>`;
+          productList.appendChild(card);
+        });
+
+        document.getElementById("products").style.display = "block";
+      }
+
+      function showProductInfo(productId) {
+        const productDetails = document.getElementById("product-details");
+        const buyButton = document.getElementById("buy-button");
+
+        const selectedProduct = products.find(
+          (product) => product.id === productId
+        );
+
+        productDetails.innerHTML = `${selectedProduct.description}`;
+
+        buyButton.style.display = "block";
+        buyButton.dataset.productId = productId;
+
+        document.getElementById("product-info").style.display = "block";
+      }
+
+      function openBuyModal() {
+        const buyModal = document.getElementById("buy-modal");
+        const overlay = document.getElementById("overlay");
+        const purchaseMessage = document.getElementById("purchase-message");
+        const buyButton = document.getElementById("buy-button");
+        const productId = buyButton.dataset.productId;
+
+        const selectedProduct = products.find(
+          (product) => product.id == productId
+        );
+
+        purchaseMessage.textContent = `${selectedProduct.name} purchased!`;
+
+        buyModal.style.display = "block";
+        overlay.style.display = "block";
+
+        setTimeout(() => {
+          buyModal.style.display = "none";
+          overlay.style.display = "none";
+
+          document.getElementById("product-list").innerHTML = "";
+          document.getElementById("product-details").innerHTML = "";
+          document.getElementById("buy-button").style.display = "none";
+          document.getElementById("products").style.display = "none";
+          document.getElementById("product-info").style.display = "none";
+        }, 3000);
+      }
+    </script>
+  </body>
+</html>
