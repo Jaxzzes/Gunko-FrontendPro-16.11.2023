@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Number Table</title>
+    <style>
+      #numberTable {
+        border-collapse: collapse;
+        width: 300px;
+        margin: auto;
+      }
+
+      #numberTable td {
+        width: 30px;
+        height: 30px;
+        border: 1px solid #ddd;
+        text-align: center;
+        vertical-align: middle;
+      }
+    </style>
+  </head>
+  <body>
+
+    <script>
+      function createNumberTable() {
+        const numberTable = document.createElement("table");
+        numberTable.setAttribute("id", "numberTable");
+
+        for (let i = 0; i < 10; i++) {
+          const row = document.createElement("tr");
+
+          for (let j = 0; j < 10; j++) {
+            const cell = document.createElement("td");
+            const number = i * 10 + j + 1;
+            const textNode = document.createTextNode(number);
+            cell.appendChild(textNode);
+            row.appendChild(cell);
+          }
+
+          numberTable.appendChild(row);
+        }
+
+        document.body.appendChild(numberTable);
+      }
+
+      createNumberTable();
+    </script>
+  </body>
+</html>
